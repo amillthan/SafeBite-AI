@@ -1,6 +1,7 @@
 # SafeBite AI — Non-Functional Requirements
 
-**Version:** 0.1.0  
+**Version:** 0.1.0
+
 **Status:** Draft
 
 ## 1. Performance Requirements

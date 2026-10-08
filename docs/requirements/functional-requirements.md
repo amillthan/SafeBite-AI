@@ -1,6 +1,7 @@
 # SafeBite AI — Functional Requirements
 
-**Version:** 0.1.0  
+**Version:** 0.1.0
+
 **Status:** Draft
 
 ## 1. Review Submission

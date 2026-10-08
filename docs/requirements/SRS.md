@@ -2,7 +2,8 @@
 
 ## SafeBite AI — AI-Powered Food Safety Early Warning System
 
-**Version:** 0.1.0  
+**Version:** 0.1.0
+ 
 **Status:** Draft
 
 ---

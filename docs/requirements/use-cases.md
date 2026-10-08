@@ -1,6 +1,7 @@
 # SafeBite AI — Use Cases and Acceptance Criteria
 
-**Version:** 0.1.0  
+**Version:** 0.1.0
+
 **Status:** Draft
 
 ## 1. Actors
