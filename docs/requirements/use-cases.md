@@ -20,7 +20,7 @@ These are planned roles. Authentication and role-based permissions will be imple
 
 ### UC-01: Analyze a Restaurant Review
 
-**Actor:** Analyst  
+**Actor:** Analyst
 **Related requirements:** FR-01, FR-02, FR-03
 
 **Preconditions:**
@@ -46,7 +46,7 @@ These are planned roles. Authentication and role-based permissions will be imple
 
 ### UC-02: Identify Food Safety Complaint Categories
 
-**Actor:** Analyst  
+**Actor:** Analyst
 **Related requirement:** FR-04
 
 **Main flow:**
@@ -61,7 +61,7 @@ These are planned roles. Authentication and role-based permissions will be imple
 
 ### UC-03: Detect Similar Complaints
 
-**Actor:** Analyst  
+**Actor:** Analyst
 **Related requirement:** FR-05
 
 **Main flow:**
@@ -77,7 +77,7 @@ These are planned roles. Authentication and role-based permissions will be imple
 
 ### UC-04: Monitor Restaurant Complaint Trends
 
-**Actor:** Analyst  
+**Actor:** Analyst
 **Related requirement:** FR-06
 
 **Main flow:**
@@ -94,7 +94,7 @@ These are planned roles. Authentication and role-based permissions will be imple
 
 ### UC-05: Review an Early Warning Alert
 
-**Actor:** Analyst or Administrator  
+**Actor:** Analyst or Administrator
 **Related requirement:** FR-07
 
 **Main flow:**
@@ -113,7 +113,7 @@ These are planned roles. Authentication and role-based permissions will be imple
 
 ### UC-06: View the Dashboard
 
-**Actor:** Analyst  
+**Actor:** Analyst
 **Related requirement:** FR-08
 
 **Main flow:**
@@ -130,7 +130,7 @@ These are planned roles. Authentication and role-based permissions will be imple
 
 ### UC-07: Store and Retrieve Analysis Records
 
-**Actor:** System  
+**Actor:** System
 **Related requirement:** FR-09
 
 **Main flow:**
