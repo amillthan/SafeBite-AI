@@ -218,3 +218,37 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ==========================================
+# SafeBite AI - Project Specific Rules
+# ==========================================
+
+# Environment files and credentials
+.env.*
+!.env.example
+
+# Raw and processed datasets
+/data/raw/*
+/data/processed/*
+/data/annotations/*
+
+# Preserve directory placeholders
+!/data/raw/.gitkeep
+!/data/processed/.gitkeep
+!/data/annotations/.gitkeep
+
+# Trained ML models
+/artifacts/models/*
+!/artifacts/models/.gitkeep
+
+# Local database files
+*.db
+*.sqlite3
+
+# IDE settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
