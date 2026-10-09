@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+from backend.app.routes.prediction_routes import router as prediction_router
 app = FastAPI(
     title="SafeBite AI API",
     description="AI-Powered Food Safety Early Warning System",
@@ -13,3 +13,5 @@ def health_check():
         "status": "healthy",
         "service": "SafeBite AI Backend"
     }
+
+app.include_router(prediction_router)
