@@ -12,6 +12,8 @@ dependencies = [
     "scikit-learn",
     "nltk",
     "python-dotenv",
+    "requests",
+    "joblib",
 ]
 
 [project.optional-dependencies]
