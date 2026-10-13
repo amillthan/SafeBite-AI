@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
 from backend.app.services.prediction_service import predict_food_safety
+
 router = APIRouter(prefix="/api", tags=["Prediction"])
 
 
@@ -13,6 +14,7 @@ class PredictionResponse(BaseModel):
     prediction: int
     label: str
     confidence: float
+    categories: list[str]
 
 
 @router.post("/predict", response_model=PredictionResponse)
