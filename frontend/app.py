@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import pandas as pd
 
 API_URL = "http://127.0.0.1:8000/api/predict"
 
@@ -101,3 +102,69 @@ st.info(
     "a small synthetic dataset. Predictions are for "
     "development and testing only."
 )
+
+st.divider()
+st.header("Batch Review Analysis")
+
+uploaded_file = st.file_uploader(
+    "Upload a CSV file containing restaurant reviews",
+    type=["csv"],
+)
+
+if uploaded_file is not None:
+    try:
+        df = pd.read_csv(uploaded_file)
+
+        if "text" not in df.columns:
+            st.error("CSV must contain a column named 'text'.")
+
+        else:
+            st.write(f"Total rows: {len(df)}")
+
+            if st.button("Analyze CSV Reviews"):
+                if df.empty:
+                    st.warning("The uploaded CSV contains no reviews.")
+
+                elif len(df) > 1000:
+                    st.warning("Maximum 1000 reviews per upload.")
+
+                elif df["text"].isna().any():
+                    st.error("The text column contains missing reviews.")
+
+                else:
+                    reviews = df["text"].astype(str).tolist()
+
+                    with st.spinner("Analyzing reviews..."):
+                        response = requests.post(
+                            "http://127.0.0.1:8000/api/predict/batch",
+                            json={"reviews": reviews},
+                            timeout=180,
+                        )
+
+                        response.raise_for_status()
+                        results = response.json()["results"]
+
+                    results_df = pd.DataFrame(results)
+
+                    results_df["categories"] = results_df[
+                        "categories"
+                    ].apply(lambda values: ", ".join(values))
+
+                    st.success("Batch analysis completed!")
+
+                    st.dataframe(
+                        results_df,
+                        use_container_width=True,
+                    )
+
+                    st.download_button(
+                        label="Download Analysis Results",
+                        data=results_df.to_csv(index=False),
+                        file_name="safebite_analysis_results.csv",
+                        mime="text/csv",
+                    )
+
+    except pd.errors.ParserError:
+        st.error("Invalid CSV format.")
+    except requests.exceptions.RequestException as exc:
+        st.error(f"Batch analysis request failed: {exc}")
