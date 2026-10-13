@@ -146,6 +146,56 @@ if uploaded_file is not None:
 
                     results_df = pd.DataFrame(results)
 
+                    st.divider()
+                    st.header("Food Safety Analytics Dashboard")
+
+                    total_reviews = len(results_df)
+                    complaint_count = int((results_df["prediction"] == 1).sum())
+                    complaint_percentage = (
+                        complaint_count / total_reviews * 100
+                        if total_reviews > 0 else 0
+                    )
+
+                    disagreement_count = int(
+                        (
+                            (results_df["prediction"] == 0)
+                            & (results_df["categories"] != "")
+                        ).sum()
+                    )
+
+                    col1, col2, col3, col4 = st.columns(4)
+
+                    col1.metric("Total Reviews", total_reviews)
+                    col2.metric("ML-Flagged Complaints", complaint_count)
+                    col3.metric("ML Complaint Rate", f"{complaint_percentage:.1f}%")
+                    col4.metric("ML/Keyword Disagreements", disagreement_count)
+
+                    st.subheader("Prediction Distribution")
+
+                    prediction_counts = (
+                        results_df["label"]
+                        .value_counts()
+                    )
+
+                    st.bar_chart(prediction_counts)
+
+                    st.subheader("Food Safety Category Distribution")
+
+                    category_counts = (
+                        results_df["categories"]
+                        .str.split(", ")
+                        .explode()
+                    )
+
+                    category_counts = category_counts[
+                        category_counts.notna() & (category_counts != "")
+                    ].value_counts()
+
+                    if not category_counts.empty:
+                        st.bar_chart(category_counts)
+                    else:
+                        st.info("No food safety categories detected.")
+
                     results_df["categories"] = results_df[
                         "categories"
                     ].apply(lambda values: ", ".join(values))
