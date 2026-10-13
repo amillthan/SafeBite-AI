@@ -134,17 +134,34 @@ if uploaded_file is not None:
                 else:
                     reviews = df["text"].astype(str).tolist()
 
+                    if "restaurant_id" in df.columns:
+                        if (
+                            df["restaurant_id"].isna().any()
+                            or df["restaurant_id"].astype(str).str.strip().eq("").any()
+                        ):
+                            st.error("Restaurant IDs must not be empty.")
+                            st.stop()
+
                     with st.spinner("Analyzing reviews..."):
                         response = requests.post(
                             "http://127.0.0.1:8000/api/predict/batch",
-                            json={"reviews": reviews},
+                            json={
+                                "reviews": reviews,
+                                "restaurant_ids": (
+                                    df["restaurant_id"].astype(str).tolist()
+                                    if "restaurant_id" in df.columns
+                                    else None
+                                ),
+                            },
                             timeout=180,
                         )
 
                         response.raise_for_status()
                         response_data = response.json()
+
                         results = response_data["results"]
                         warning = response_data["warning"]
+                        restaurant_summaries = response_data.get("restaurants", [])
 
                     results_df = pd.DataFrame(results)
 
@@ -161,7 +178,7 @@ if uploaded_file is not None:
                     disagreement_count = int(
                         (
                             (results_df["prediction"] == 0)
-                            & (results_df["categories"] != "")
+                            & results_df["categories"].apply(bool)
                         ).sum()
                     )
 
@@ -183,11 +200,7 @@ if uploaded_file is not None:
 
                     st.subheader("Food Safety Category Distribution")
 
-                    category_counts = (
-                        results_df["categories"]
-                        .str.split(", ")
-                        .explode()
-                    )
+                    category_counts = results_df["categories"].explode()
 
                     category_counts = category_counts[
                         category_counts.notna() & (category_counts != "")
@@ -240,6 +253,22 @@ if uploaded_file is not None:
                         "Experimental indicators based on review text. "
                         "They do not establish actual food safety conditions."
                     )
+
+                    if restaurant_summaries:
+                        st.divider()
+                        st.header("Restaurant-Level Warning Summary")
+
+                        restaurant_df = pd.DataFrame(restaurant_summaries)
+
+                        st.dataframe(
+                            restaurant_df,
+                            use_container_width=True,
+                        )
+
+                        st.caption(
+                            "Restaurant warning levels are experimental "
+                            "review-based indicators, not verified safety ratings."
+                        )
 
     except pd.errors.ParserError:
         st.error("Invalid CSV format.")
