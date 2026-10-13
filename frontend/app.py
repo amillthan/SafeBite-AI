@@ -1,8 +1,16 @@
+import os
+
 import pandas as pd
 import requests
 import streamlit as st
 
-API_URL = "http://127.0.0.1:8000/api/predict"
+API_BASE_URL = os.getenv(
+    "SAFEBITE_API_URL",
+    "http://127.0.0.1:8000"
+).rstrip("/")
+
+API_URL = f"{API_BASE_URL}/api/predict"
+BATCH_API_URL = f"{API_BASE_URL}/api/predict/batch"
 
 st.set_page_config(
     page_title="SafeBite AI",
@@ -146,7 +154,7 @@ if uploaded_file is not None:
 
                     with st.spinner("Analyzing reviews..."):
                         response = requests.post(
-                            "http://127.0.0.1:8000/api/predict/batch",
+                            BATCH_API_URL,
                             json={
                                 "reviews": reviews,
                                 "restaurant_ids": (
