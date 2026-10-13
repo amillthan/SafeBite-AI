@@ -1,4 +1,5 @@
 from pathlib import Path
+from backend.app.services.category_service import detect_categories
 
 import joblib
 
@@ -35,12 +36,17 @@ def predict_food_safety(review_text: str):
     class_index = list(model.classes_).index(prediction)
     confidence = float(probabilities[class_index])
 
+    label = (
+        "Potential Food Safety Complaint"
+        if prediction == 1
+        else "No Food Safety Complaint"
+    )
+
+    categories = detect_categories(review_text)
+
     return {
         "prediction": prediction,
-        "label": (
-            "Potential Food Safety Complaint"
-            if prediction == 1
-            else "No Food Safety Complaint Detected"
-        ),
-        "confidence": round(confidence, 4),
+        "label": label,
+        "confidence": confidence,
+        "categories": categories,
     }

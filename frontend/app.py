@@ -64,6 +64,23 @@ if st.button("Analyze Review", type="primary"):
                 f"{confidence * 100:.2f}%"
             )
 
+            categories = result.get("categories", [])
+
+            st.subheader("Detected Food Safety Categories")
+
+            if categories:
+                for category in categories:
+                    st.write(f"• {category}")
+
+                if prediction == 0:
+                    st.warning(
+                        "The ML model classified this review as normal, "
+                        "but keyword-based detection identified potential "
+                        "food safety concerns. This result requires review."
+                    )
+            else:
+                st.info("No specific food safety categories identified.")
+
             st.caption(
                 "This is an experimental AI prediction, "
                 "not a verified food safety finding."
