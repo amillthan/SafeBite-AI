@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from backend.app.routes.prediction_routes import router as prediction_router
+
 from backend.app.routes.batch_routes import router as batch_router
+from backend.app.routes.prediction_routes import router as prediction_router
 
 app = FastAPI(
     title="SafeBite AI API",

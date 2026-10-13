@@ -1,6 +1,6 @@
-import streamlit as st
-import requests
 import pandas as pd
+import requests
+import streamlit as st
 
 API_URL = "http://127.0.0.1:8000/api/predict"
 
@@ -134,13 +134,15 @@ if uploaded_file is not None:
                 else:
                     reviews = df["text"].astype(str).tolist()
 
-                    if "restaurant_id" in df.columns:
-                        if (
+                    if (
+                        "restaurant_id" in df.columns
+                        and (
                             df["restaurant_id"].isna().any()
                             or df["restaurant_id"].astype(str).str.strip().eq("").any()
-                        ):
-                            st.error("Restaurant IDs must not be empty.")
-                            st.stop()
+                        )
+                    ):
+                        st.error("Restaurant IDs must not be empty.")
+                        st.stop()
 
                     with st.spinner("Analyzing reviews..."):
                         response = requests.post(

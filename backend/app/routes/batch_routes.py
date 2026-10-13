@@ -1,9 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
 from backend.app.services.batch_service import analyze_reviews
-from backend.app.services.warning_service import calculate_warning
 from backend.app.services.restaurant_service import analyze_restaurants
+from backend.app.services.warning_service import calculate_warning
 
 router = APIRouter(prefix="/api", tags=["Batch Analysis"])
 

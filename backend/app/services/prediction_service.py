@@ -1,7 +1,8 @@
 from pathlib import Path
-from backend.app.services.category_service import detect_categories
 
 import joblib
+
+from backend.app.services.category_service import detect_categories
 
 MODEL_PATH = (
     Path(__file__).resolve().parents[3]
