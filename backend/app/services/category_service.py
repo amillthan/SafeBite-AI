@@ -50,7 +50,6 @@ CATEGORY_KEYWORDS = {
 }
 
 
-import re
 
 NEGATION_WORDS = {
     "no",
