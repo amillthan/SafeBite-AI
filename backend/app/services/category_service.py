@@ -50,6 +50,26 @@ CATEGORY_KEYWORDS = {
 }
 
 
+import re
+
+NEGATION_WORDS = {
+    "no",
+    "not",
+    "never",
+    "without",
+    "neither",
+    "nor",
+}
+
+def is_negated(text: str, match_start: int) -> bool:
+    prefix = text[:match_start]
+    words = re.findall(r"\b\w+\b", prefix)
+
+    recent_words = words[-4:]
+
+    return any(word in NEGATION_WORDS for word in recent_words)
+
+
 def detect_categories(text: str) -> list[str]:
     normalized_text = text.lower()
     detected = []
@@ -58,8 +78,12 @@ def detect_categories(text: str) -> list[str]:
         for keyword in keywords:
             pattern = rf"(?<!\w){re.escape(keyword)}(?!\w)"
 
-            if re.search(pattern, normalized_text):
-                detected.append(category)
+            for match in re.finditer(pattern, normalized_text):
+                if not is_negated(normalized_text, match.start()):
+                    detected.append(category)
+                    break
+
+            if category in detected:
                 break
 
     return detected
