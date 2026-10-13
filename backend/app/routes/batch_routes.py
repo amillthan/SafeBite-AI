@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
 from backend.app.services.batch_service import analyze_reviews
+from backend.app.services.warning_service import calculate_warning
 
 router = APIRouter(prefix="/api", tags=["Batch Analysis"])
 
@@ -25,4 +26,5 @@ def predict_batch(request: BatchRequest):
     return {
         "total_reviews": len(results),
         "results": results,
+        "warning": calculate_warning(results),
     }

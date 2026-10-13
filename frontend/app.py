@@ -142,7 +142,9 @@ if uploaded_file is not None:
                         )
 
                         response.raise_for_status()
-                        results = response.json()["results"]
+                        response_data = response.json()
+                        results = response_data["results"]
+                        warning = response_data["warning"]
 
                     results_df = pd.DataFrame(results)
 
@@ -212,6 +214,31 @@ if uploaded_file is not None:
                         data=results_df.to_csv(index=False),
                         file_name="safebite_analysis_results.csv",
                         mime="text/csv",
+                    )
+
+                    st.divider()
+                    st.header("Early Warning Indicators")
+
+                    col1, col2, col3 = st.columns(3)
+
+                    col1.metric(
+                        "Flagged Reviews",
+                        warning["flagged_reviews"],
+                    )
+
+                    col2.metric(
+                        "Flagged Review Rate",
+                        f'{warning["complaint_rate"]:.2f}%',
+                    )
+
+                    col3.metric(
+                        "Warning Level",
+                        warning["warning_level"],
+                    )
+
+                    st.caption(
+                        "Experimental indicators based on review text. "
+                        "They do not establish actual food safety conditions."
                     )
 
     except pd.errors.ParserError:
