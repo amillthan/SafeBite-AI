@@ -230,7 +230,7 @@ if uploaded_file is not None:
 
                     st.dataframe(
                         results_df,
-                        use_container_width=True,
+                        width="stretch",
                     )
 
                     st.download_button(
@@ -273,7 +273,7 @@ if uploaded_file is not None:
 
                         st.dataframe(
                             restaurant_df,
-                            use_container_width=True,
+                            width="stretch",
                         )
 
                         st.caption(

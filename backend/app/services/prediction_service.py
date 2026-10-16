@@ -5,7 +5,6 @@ import joblib
 
 from backend.app.services.category_service import detect_categories
 
-
 # Project root directory
 BASE_DIR = Path(__file__).resolve().parents[3]
 
