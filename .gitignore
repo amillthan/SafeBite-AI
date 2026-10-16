@@ -218,3 +218,45 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ==========================================
+# SafeBite AI - Project Specific Rules
+# ==========================================
+
+# Environment files and credentials
+.env.*
+!.env.example
+
+# Raw and processed datasets
+/data/raw/*
+/data/processed/*
+# Ignore annotation datasets by default
+/data/annotations/*
+
+# Allow documentation and synthetic example template
+!/data/annotations/annotation_guidelines.md
+!/data/annotations/food_safety_annotation_template.csv
+
+# Preserve directory placeholders
+!/data/raw/.gitkeep
+!/data/processed/.gitkeep
+!/data/annotations/.gitkeep
+
+# Trained ML models
+/artifacts/models/*
+!/artifacts/models/.gitkeep
+
+# Local database files
+*.db
+*.sqlite3
+
+# IDE settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Locally trained model (distribution rights pending)
+/models/safebite_binary_model.joblib

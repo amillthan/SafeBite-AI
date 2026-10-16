@@ -1,0 +1,9 @@
+review_id,text,label,category,annotation_status
+S001,"The chicken was raw in the middle.",1,Undercooked Food,reviewed
+S002,"The food was delicious.",0,None,reviewed
+S003,"I saw cockroaches near the kitchen.",1,Pest Activity,reviewed
+S004,"The waiter was slow.",0,None,reviewed
+S005,"I felt sick after eating here.",1,Suspected Foodborne Illness,reviewed
+S006,"The restaurant was not very clean.",1,Hygiene,reviewed
+S007,"I did not see any insects.",0,None,reviewed
+S008,"The food contained a piece of plastic.",1,Food Contamination,reviewed
