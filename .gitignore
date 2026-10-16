@@ -257,3 +257,6 @@ __marimo__/
 # Operating system files
 .DS_Store
 Thumbs.db
+
+# Locally trained model (distribution rights pending)
+/models/safebite_binary_model.joblib
