@@ -106,9 +106,10 @@ if st.button("Analyze Review", type="primary"):
 st.divider()
 
 st.info(
-    "Prototype Notice: The current model was trained using "
-    "a small synthetic dataset. Predictions are for "
-    "development and testing only."
+    "Research Prototype: This model was trained using "
+    "501 manually labeled restaurant reviews. "
+    "Predictions are experimental and should not be "
+    "treated as verified food safety findings."
 )
 
 st.divider()
@@ -229,7 +230,7 @@ if uploaded_file is not None:
 
                     st.dataframe(
                         results_df,
-                        use_container_width=True,
+                        width="stretch",
                     )
 
                     st.download_button(
@@ -272,7 +273,7 @@ if uploaded_file is not None:
 
                         st.dataframe(
                             restaurant_df,
-                            use_container_width=True,
+                            width="stretch",
                         )
 
                         st.caption(

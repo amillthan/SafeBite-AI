@@ -34,7 +34,8 @@ Example response:
 {
   "prediction": 1,
   "label": "Potential Food Safety Complaint",
-  "confidence": 0.5673
+  "confidence": 0.7341,
+  "categories": ["Undercooked Food"]
 }
 ```
 
@@ -74,7 +75,8 @@ The four tests verify successful API responses, empty review rejection, missing 
 
 ## 9. Limitations
 
-- The model is trained on a very small synthetic dataset.
+- The model was trained on 501 manually labeled reviews.
+- Test accuracy was 84.21%, but real-world performance is not established.
+- Category detection is rule-based, not a separate ML classifier.
 - Predictions are not verified food safety findings.
-- Current performance is insufficient for real-world monitoring.
-- A suitable labeled dataset and further evaluation are required before production use.
+- Further evaluation is required before production use.
