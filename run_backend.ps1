@@ -1,15 +1,20 @@
+
 $ErrorActionPreference = "Stop"
 
-if (-not (Test-Path "artifacts/models/food_safety_classifier.joblib")) {
-    Write-Host "Model not found. Generating prototype model..."
+$modelPath = "models/safebite_binary_model.joblib"
 
-    python data/scripts/create_synthetic_dataset.py
-
-    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-    python ml/train_baseline.py
-
-    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+if (-not (Test-Path $modelPath)) {
+    Write-Host "ERROR: Trained SafeBite AI model not found."
+    Write-Host "Expected location: $modelPath"
+    Write-Host "Restore the trained model before starting the backend."
+    exit 1
 }
 
+Write-Host "SafeBite AI trained model found."
+Write-Host "Starting FastAPI backend..."
+
 python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
+
+if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+}
